@@ -21,7 +21,7 @@ const DirectoriesTableMembers = ({ members, strings }) => {
         return (
             <>
                 <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                    <Chip className='member-chip' label={`${members.length} ${strings.members}`} />
+                    <Chip className='member-chip' label={strings.members(members.length)} />
                 </div>
                 <Popover
                     anchorEl={anchorEl}
@@ -49,14 +49,14 @@ const DirectoriesTableMembers = ({ members, strings }) => {
 DirectoriesTableMembers.propTypes = {
     members: PropTypes.array,
     strings: PropTypes.shape({
-        members: PropTypes.string,
+        members: PropTypes.func,
     })
 }
 
 DirectoriesTableMembers.defaultProps = {
     members: [],
     strings: {
-        members: 'members',
+        members: count => `${count} members`,
     }
 }
 

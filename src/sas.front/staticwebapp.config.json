@@ -12,11 +12,11 @@
 		".json": "text/json"
 	},
 	"auth": {
-		"rolesSource" : "/api/Roles",
+		"rolesSource": "/api/Roles",
 		"identityProviders": {
 			"azureActiveDirectory": {
 				"registration": {
-					"openIdIssuer": "https://login.microsoftonline.com/__AZURE_TENANT_ID/v2.0",
+					"openIdIssuer": "https://login.microsoftonline.com/__AZURE_TENANT_ID__/v2.0",
 					"clientIdSettingName": "AZURE_CLIENT_ID",
 					"clientSecretSettingName": "AZURE_CLIENT_SECRET"
 				}
@@ -60,15 +60,6 @@
 		},
 		{
 			"route": "/api/TopLevelFolders",
-			"methods": [
-				"POST"
-			],
-			"allowedRoles": [
-				"administrator"
-			]
-		},
-		{
-			"route": "/api/Configuration/CalculateFolderSizes",
 			"methods": [
 				"POST"
 			],
