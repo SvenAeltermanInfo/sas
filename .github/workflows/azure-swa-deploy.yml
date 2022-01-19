@@ -11,12 +11,17 @@ on:
     branches:
       - main
   pull_request_target:
-    types: [labeled]
+    # Only run when the pull request has at least one label
+    # Exact label will be checked below
+    types: [labeled, closed]
   workflow_dispatch:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || (github.event_name == 'pull_request_target' && contains(github.event.pull_request.labels.*.name, 'safe to test'))
+    if: github.event_name == 'workflow_dispatch'
+      || github.event_name == 'push'
+      || (github.event_name == 'pull_request' && github.event.action != 'closed')
+      || (github.event_name == 'pull_request_target' && contains(github.event.pull_request.labels.*.name, 'safe to test'))
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
@@ -54,7 +59,8 @@ jobs:
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: (github.event_name == 'pull_request' && github.event.action == 'closed')
+      || (github.event_name == 'pull_request_target' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'safe to test'))
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
