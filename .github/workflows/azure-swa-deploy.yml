@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print
-        run: env | var
+        run: env | sort
       - name: Print more
         run: echo ${{github.event.repository.full_name}}
   build_and_deploy_job:
